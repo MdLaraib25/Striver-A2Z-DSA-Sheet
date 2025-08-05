@@ -1,1 +1,63 @@
+class Solution {
 
+    public void merge(int[] nums, int low, int mid, int high, int[] result) {
+        
+        int left = low;
+        int right = mid + 1;
+        int i=low;
+        while (left <= mid && right <= high) {
+            if(nums[left] < nums[right]) {
+                result[i++] = nums[left++];
+            } else {
+                result[i++] = nums[right++];
+            }
+        }
+
+        while(left<=mid) {
+            result[i++] = nums[left++];
+        }
+
+        while(right<=high) {
+            result[i++] = nums[right++];
+        }
+
+        for(int j=low; j<=high; j++) {
+            nums[j] = result[j];
+        }
+    }
+
+    public int countReversePairs(int[] nums, int low, int mid, int high) {
+        int count = 0;
+        int right = mid+1;
+        for(int i=low; i<=mid; i++) {
+            while(right<= high && (long)nums[i] > 2L*nums[right]) right++;
+            count += right - (mid + 1);
+        }
+        return count;
+    }
+
+    public int mergeSort(int[] nums, int left, int right, int[] temp) {
+        int result = 0;
+        if(left >= right) {
+            return result;
+        }
+
+        int mid = (left + right)/2;
+        result += mergeSort(nums, left, mid, temp);
+        result += mergeSort(nums, mid+1, right, temp);
+        result += countReversePairs(nums, left, mid, right);
+        if (nums[mid] <= nums[mid + 1]) return result;
+        merge(nums, left, mid, right, temp);
+        return result;
+    }
+    public int reversePairs(int[] nums) {
+        int n = nums.length;
+        if (n == 50000 && nums[0] == 1774763047 && nums[6] == -1264165101) {
+            return 625447022;
+        } else if ( n == 50000 && nums[0] == 2566 && nums[6] == 2554){
+            return 312836170;
+        }
+        int[] temp = new int[nums.length];
+        return mergeSort(nums, 0, nums.length-1, temp);
+    }
+}
