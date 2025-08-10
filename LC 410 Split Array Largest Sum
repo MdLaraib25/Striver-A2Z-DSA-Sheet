@@ -1,0 +1,28 @@
+class Solution {
+    public int totPartition(int[] nums , int mid){
+         long sum = 0 ;
+         int partitions = 1;
+         for(int i = 0; i< nums.length; i++){
+            if(sum + nums[i] <= mid) sum += nums[i];
+            else {
+                partitions++;
+                sum = nums[i];
+            }
+         } return partitions;
+
+    }
+    public int splitArray(int[] nums, int k) {
+        if(k > nums.length) return -1;
+        int low =  Integer.MIN_VALUE;
+        int high = 0;
+        for(int i : nums){
+            low = Math.max( low , i);
+            high += i;
+        }
+        while( low <= high){
+            int mid = low + (high - low)/2;
+            if(totPartition(nums , mid) > k ) low = mid + 1;
+            else high = mid - 1;
+        } return low;
+    }
+}
