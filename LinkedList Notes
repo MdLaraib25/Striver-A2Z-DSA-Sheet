@@ -1,1 +1,3 @@
-
+LinkedList - It is also a Data Structure just like an Array but htey are not in the contiguous memoru location..
+Now to access the each element - each elements stores the location of next elements so that we can access all the elemnts with the help of the previous element, now the last element will store NULL in java as
+the location for the next elements bcs their is no next elements exist..
