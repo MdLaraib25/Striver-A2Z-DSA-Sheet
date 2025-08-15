@@ -1,3 +1,18 @@
-LinkedList - It is also a Data Structure just like an Array but htey are not in the contiguous memoru location..
+LinkedList - It is also a Data Structure just like an Array but they are not in the contiguous memoru location..
 Now to access the each element - each elements stores the location of next elements so that we can access all the elemnts with the help of the previous element, now the last element will store NULL in java as
 the location for the next elements bcs their is no next elements exist..
+
+Deletion of head from a LinkedList ->
+
+head - head is  the first element in the LL , we will avoid to move the header anywhere else from the first element , if we need to iterate or anything with all the 
+elements of the LL then do this by creating a temporary temp variable ( temp = head ) and now iterate with the help of temp.
+
+Private static Node removesHead(Node head){
+if (head == null) return head;       // when their is no elements in the LinkedList
+head = head.next;                   // moving one index forward so that now it becomes head and the previous one will be deleted and size will decreasd by one of LL
+return head;         //
+}
+
+
+Deletion of tail from a LinkedList ->
+tail - tail is the one which always stays at the last element of a LL just like the head stay at the first elemtns of the LL.
