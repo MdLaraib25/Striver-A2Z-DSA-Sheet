@@ -27,3 +27,33 @@ temp = temp.next;
 temp.next = null;
 return head;
 }
+
+Deleting any random  Kth element from the LL.
+
+private static Node deleteKthElement(Node head){
+if(head == null) return head;
+if (k == 1) {
+Node temp = head;
+return head;
+}
+int cnt = 0;
+Node temp = head;
+Node prev = null;
+while( temp != null){
+cnt++;
+if(temp == k){
+prev.next = prev.next.next;
+break;
+}
+prev = temp;
+temp = temp.next;
+}
+}
+
+
+
+
+
+
+
+
