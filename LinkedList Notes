@@ -15,4 +15,15 @@ return head;         //
 
 
 Deletion of tail from a LinkedList ->
+
 tail - tail is the one which always stays at the last element of a LL just like the head stay at the first elemtns of the LL.
+
+private static Node removerTail(Node head){
+if ( head == null || head.next == null) return null;
+Node temp = head;
+while ( head.next.next != null){
+temp = temp.next;
+}
+temp.next = null;
+return head;
+}
