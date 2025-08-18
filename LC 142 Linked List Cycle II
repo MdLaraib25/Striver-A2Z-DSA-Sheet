@@ -1,0 +1,13 @@
+Approaach - 01
+
+public class Solution {
+    public ListNode detectCycle(ListNode head) {
+        Map<ListNode,Integer> mpp = new HashMap<>();
+        ListNode temp = head;
+        while(temp != null){
+            if(mpp.containsKey(temp)) return temp;
+            else  mpp.put(temp , 1);
+            temp = temp.next;
+        } return null;
+    }
+}
