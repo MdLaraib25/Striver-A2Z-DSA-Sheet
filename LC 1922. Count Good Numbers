@@ -1,0 +1,23 @@
+class Solution {
+    private final long MOD = 1_000_000_007;
+
+    public int countGoodNumbers(long n) {
+        long even = (n + 1) / 2;
+        long odd = n / 2; 
+
+        long first = pow(5, even);
+        long sec = pow(4, odd); 
+
+        return (int)((first * sec) % MOD);
+    }
+
+    private long pow(long x, long n) {
+        if (n == 0) return 1;
+        long temp = pow(x, n / 2);
+        if (n % 2 == 0) {
+            return (temp * temp) % MOD;
+        } else {
+            return ((x % MOD) * ((temp * temp) % MOD)) % MOD;
+        }
+    }
+}
