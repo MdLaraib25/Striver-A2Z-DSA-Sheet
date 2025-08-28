@@ -1,0 +1,20 @@
+class Solution {
+    private void findComb(int k, int num, int target,  ArrayList<Integer>ds,List<List<Integer>> ans){
+        if(target == 0 && k == 0){
+            ans.add(new ArrayList<>(ds));
+            return;
+        }
+        for(int i = num; i < 10; i++){
+             if(i > target || k <= 0) break;
+             ds.add(i);
+            findComb(k - 1, i + 1, target - i, ds, ans);
+            ds.remove(ds.size() - 1);
+        }
+
+    }
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        List<List<Integer>> ans = new ArrayList<>();
+        findComb(k, 1, n, new ArrayList<>(), ans);
+        return ans;
+    }
+}
