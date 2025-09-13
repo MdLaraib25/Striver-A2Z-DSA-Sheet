@@ -1,0 +1,21 @@
+class Solution {
+    private boolean isVowel(char c) {
+        return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u';
+    }
+    public int maxFreqSum(String s) {
+        Map<Character, Integer> mp = new HashMap<>();
+        for (char ch : s.toCharArray()) {
+            mp.put(ch, mp.getOrDefault(ch, 0) + 1);
+        }
+        int maxVowel = 0;
+        int maxCons = 0;
+        for (char ch = 'a'; ch <= 'z'; ch++) {
+            if (isVowel(ch)) {
+                maxVowel = Math.max(maxVowel, mp.getOrDefault(ch, 0));
+            } else {
+                maxCons = Math.max(maxCons, mp.getOrDefault(ch, 0));
+            }
+        }
+        return maxVowel + maxCons;
+    }
+}
