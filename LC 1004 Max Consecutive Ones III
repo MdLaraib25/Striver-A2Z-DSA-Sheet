@@ -1,0 +1,65 @@
+Approach - 01 Brute Force Approach 
+
+class Solution {
+    public int longestOnes(int[] nums, int k) {
+        int maxLen = 0, len = 0;
+        for(int i = 0; i < nums.length; i++){
+            int totZero = 0;
+            for(int j = i; j < nums.length; j++){
+                if(nums[j] == 0) totZero++;
+                if(totZero <= k){
+                    len = j - i + 1;
+                    maxLen = Math.max(maxLen, len);
+                } else break;
+            }
+        } return maxLen;
+    }
+}
+TC - O(N^2)
+SC - 0(1)
+
+Approach - 02 Optimal approach
+
+class Solution {
+    public int longestOnes(int[] nums, int k) {
+        int maxLen = 0, l = 0, r = 0, totZero = 0, len = 0;
+        while(r < nums.length){
+            if(nums[r] == 0) totZero++;
+            while(totZero > k){
+                if(nums[l] == 0) totZero--;
+                l++;
+            }
+            if(totZero <= k){
+                len = r - l + 1;
+                maxLen = Math.max(maxLen, len);
+                r++;
+            }
+        } return maxLen;
+    }
+}
+
+TC - 0(2N)
+SC - 0(1)
+
+Approach - 03  - Best approach 
+
+class Solution {
+    public int longestOnes(int[] nums, int k) {
+        int maxLen = 0, l = 0, r = 0, totZero = 0, len = 0;
+        while(r < nums.length){
+            if(nums[r] == 0)totZero++;
+            if(totZero > k){
+                if(nums[l] == 0) totZero--;
+                l++;
+            }
+            if(totZero <= k){
+                len = r - l + 1;
+                maxLen = Math.max(maxLen, len);
+            }
+            r++;
+        } return maxLen;
+    }
+}
+
+TC - 0(N)
+SC - 0(1)
