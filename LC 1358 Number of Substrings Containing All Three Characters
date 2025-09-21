@@ -1,0 +1,15 @@
+class Solution {
+    public int numberOfSubstrings(String s) {
+        int cnt = 0, n = s.length(), left = 0;
+        int[] totChar = new int[3];
+        for(int right = 0; right < n; right++){
+           totChar[s.charAt(right) - 'a']++;
+
+            while (totChar[0] > 0 && totChar[1] > 0 && totChar[2] > 0) {
+                cnt += s.length() - right;
+                totChar[s.charAt(left) - 'a']--;
+                left++;
+            }
+        } return cnt;
+    }
+}
