@@ -6,7 +6,7 @@ class Solution {
             if(load + weights[i] > capacty){
                 days += 1;
                 load = weights[i];
-            } else load +=  weights[i];
+            } else load +=  weights[i]; 
         } return days;
     }
     public int shipWithinDays(int[] weights, int days) {
