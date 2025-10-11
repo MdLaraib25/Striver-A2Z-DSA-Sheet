@@ -10,7 +10,7 @@ class Solution {
         } return days;
     }
     public int shipWithinDays(int[] weights, int days) {
-        int n = weights.length;
+        int n = weights.length; 
         int low = Integer.MIN_VALUE, high = 0;
         for(int i = 0; i < n; i++){
             high += weights[i];
