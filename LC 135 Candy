@@ -1,3 +1,7 @@
+Approach - 01
+TC = 3N
+SC = 2N
+
 class Solution {
     public int candy(int[] ratings) {
         int n = ratings.length;
@@ -22,5 +26,75 @@ class Solution {
         sum += Math.max(left[i],right[i]);
         }
         return sum;
+    }
+}
+
+Approach - 02
+TC = 2N
+SC = N
+
+class Solution {
+    public int candy(int[] ratings) {
+        int n = ratings.length;
+        int[] left = new int[n];
+        left[0] = 1;
+        for(int i = 1 ; i < n; i++){  // left word side 
+            if(ratings[i] > ratings[i - 1]){
+                left[i] = left[i - 1] + 1;
+            } else left[i] = 1;
+        }
+
+        int curr = 1;
+        int sum = left[n - 1];
+        
+        for (int i = n - 2; i >= 0; i--) {
+            if(ratings[i] > ratings[i + 1]) curr += 1;
+            else curr = 1;
+            sum += Math.max(curr, left[i]);
+        }
+        return sum;
+    }
+}
+
+Approach - 03
+TC = N
+SC = 1
+
+class Solution {
+    public int candy(int[] ratings) {
+        int n = ratings.length;
+        int candies = n;
+        int i = 1;
+
+        while (i < n) {
+
+            // Skip equal ratings
+            if (ratings[i] == ratings[i - 1]) {
+                i++;
+                continue;
+            }
+
+            // Initialize increasing slope counter
+            int peak = 0;
+
+            // Traverse strictly increasing ratings
+            while (i < n && ratings[i] > ratings[i - 1]) {
+                peak++;
+                candies += peak;
+                i++;
+            }
+
+            // Initialize decreasing slope counter
+            int valley = 0;
+
+            // Traverse strictly decreasing ratings
+            while (i < n && ratings[i] < ratings[i - 1]) {
+                valley++;
+                candies += valley;
+                i++;
+            }
+            
+            candies -= Math.min(peak, valley);
+        } return candies;
     }
 }
