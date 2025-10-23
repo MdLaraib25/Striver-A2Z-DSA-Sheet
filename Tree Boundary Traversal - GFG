@@ -1,0 +1,65 @@
+/*
+class Node {
+    int data;
+    Node left, right;
+
+    public Node(int d) {
+        data = d;
+        left = right = null;
+    }
+}
+*/
+
+class Solution {
+    boolean isLeaf(Node root){
+        return root.left == null && root.right == null;
+    }
+    
+    
+    void leftBoundry(Node root, List<Integer> res){
+        Node curr = root.left;
+        while(curr != null){
+            if(!isLeaf(curr)){
+            res.add(curr.data);
+        }
+        if(curr.left != null) curr = curr.left;
+        else curr = curr.right;
+        }
+    }
+    
+    void rightBoundry(Node root, List<Integer> res){
+        Node curr = root.right;
+        List<Integer> temp = new ArrayList<>();
+        while(curr != null){
+            if(!isLeaf(curr))temp.add(curr.data);
+            if(curr.right != null) curr =  curr.right;
+            else curr = curr.left;
+        }
+        for(int i = temp.size() - 1; i >= 0; --i){
+            res.add(temp.get(i));
+        }
+    }
+    
+    void leafBoundry(Node root, List<Integer> res){
+        if(isLeaf(root)){
+            res.add(root.data);
+            return;
+        }
+        if(root.left != null)leafBoundry(root.left, res);
+        if(root.right != null)leafBoundry(root.right, res);
+    }
+    
+    
+    ArrayList<Integer> boundaryTraversal(Node root) {
+        ArrayList<Integer> ans = new ArrayList<>();
+        if(root == null) return ans;
+        if(!isLeaf(root)){
+            ans.add(root.data);
+        }
+        
+        leftBoundry(root, ans);
+        leafBoundry(root,ans);
+        rightBoundry(root,ans);
+        return ans;
+    }
+}
