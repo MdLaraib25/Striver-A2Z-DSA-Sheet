@@ -1,0 +1,53 @@
+/*
+class Node {
+    int data;
+    Node left, right;
+
+    Node(int val) {
+        this.data = val;
+        this.left = null;
+        this.right = null;
+    }
+}
+*/
+
+import java.util.*;
+
+class Solution {
+
+    // Custom Pair class
+    static class Pair {
+        Node node;
+        int hd; // horizontal distance
+
+        Pair(Node node, int hd) {
+            this.node = node;
+            this.hd = hd;
+        }
+    }
+
+    public ArrayList<Integer> topView(Node root) {
+        ArrayList<Integer> ans = new ArrayList<>();
+        if (root == null) return ans;
+
+        Map<Integer, Integer> map = new TreeMap<>();
+        Queue<Pair> q = new LinkedList<>();
+        q.add(new Pair(root, 0));
+
+        while (!q.isEmpty()) {
+            Pair p = q.poll();
+            Node node = p.node;
+            int line = p.hd;
+
+            if (!map.containsKey(line)) {
+                map.put(line, node.data);
+            }
+
+            if (node.left != null) q.add(new Pair(node.left, line - 1));
+            if (node.right != null) q.add(new Pair(node.right, line + 1));
+        }
+
+        ans.addAll(map.values());
+        return ans;
+    }
+}
