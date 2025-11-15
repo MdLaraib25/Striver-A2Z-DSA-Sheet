@@ -1,0 +1,23 @@
+class Solution {
+    public boolean carPooling(int[][] trips, int capacity) {
+        int n = 1001;
+        int[] loc = new int[n];
+
+        for (int[] trip : trips){
+            int person = trip[0];
+            int from = trip[1];
+            int to = trip[2];
+
+            loc[from] += person;
+            loc[to] -= person;
+        }
+
+        for (int i = 1; i < n; i++){
+            loc[i] += loc[i - 1];
+        }
+
+        for (int check : loc){
+            if (check > capacity) return false;
+        } return true;
+    }
+}
