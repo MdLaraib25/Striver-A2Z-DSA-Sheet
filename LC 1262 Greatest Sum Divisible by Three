@@ -1,0 +1,44 @@
+class Solution {
+    public int maxSumDivThree(int[] nums) {
+        int n = nums.length;
+        int sum = 0;
+        for (int num : nums) sum += num;
+        if (sum % 3 == 0) return sum;
+        Arrays.sort(nums);
+
+        int[] rem1 = new int[2];
+        int[] rem2 = new int[2];
+        int idx1 = 0;
+        int idx2 = 0;
+        rem1[0] = rem1[1] = Integer.MAX_VALUE;
+        rem2[0] = rem2[1] = Integer.MAX_VALUE;
+
+        for (int num : nums) {
+            if (idx1 == 2 && idx2 == 2) break;
+
+            if (num % 3 == 1 && idx1 < 2) {
+                rem1[idx1++] = num;
+            }
+            else if (num % 3 == 2 && idx2 < 2) {
+                rem2[idx2++] = num;
+            }
+        }
+
+        if (sum % 3 == 1) {
+            int option1 = rem1[0];
+            int option2 = (rem2[0] == Integer.MAX_VALUE || rem2[1] == Integer.MAX_VALUE)
+                        ? Integer.MAX_VALUE
+                        : rem2[0] + rem2[1];
+
+            return sum - Math.min(option1, option2);
+        } 
+        else {
+            int option1 = rem2[0];
+            int option2 = (rem1[0] == Integer.MAX_VALUE || rem1[1] == Integer.MAX_VALUE)
+                          ? Integer.MAX_VALUE
+                          : rem1[0] + rem1[1];
+
+            return sum - Math.min(option1, option2);
+        }
+    }
+}
