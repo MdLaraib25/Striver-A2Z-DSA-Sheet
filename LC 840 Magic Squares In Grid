@@ -1,0 +1,47 @@
+class Solution {
+    public int numMagicSquaresInside(int[][] grid) {
+        int n = grid.length, m = grid[0].length, count = 0;
+
+        for (int i = 0; i + 2 < n; i++) {
+            for (int j = 0; j + 2 < m; j++) {
+                if (isMagic(grid, i, j)) count++;
+            }
+        }
+        return count;
+    }
+
+    public boolean isMagic(int[][] grid, int r, int c) {
+
+        // center must be 5
+        if (grid[r + 1][c + 1] != 5) return false;
+
+        boolean visited[] = new boolean[10];
+
+        // cheking for all numbers must be 1–9 and distinct
+        for (int i = r; i < r + 3; i++) {
+            for (int j = c; j < c + 3; j++) {
+                int val = grid[i][j];
+                if (val < 1 || val > 9 || visited[val]) return false;
+                visited[val] = true;
+            }
+        }
+
+        // checking all the rows
+        for (int i = 0; i < 3; i++) {
+            int sum = grid[r + i][c] + grid[r + i][c + 1] + grid[r + i][c + 2];
+            if (sum != 15) return false;
+        }
+
+        // checking all the columns 
+        for (int j = 0; j < 3; j++) {
+            int sum = grid[r][c + j] + grid[r + 1][c + j] + grid[r + 2][c + j];
+            if (sum != 15) return false;
+        }
+
+        // chcking all the diagonals
+        int d1 = grid[r][c] + grid[r + 1][c + 1] + grid[r + 2][c + 2];
+        int d2 = grid[r][c + 2] + grid[r + 1][c + 1] + grid[r + 2][c];
+
+        return d1 == 15 && d2 == 15;
+    }
+}
